@@ -1,0 +1,161 @@
+[gd_scene load_steps=10 format=3 uid="uid://dqcn4x2aia3yg"]
+
+[ext_resource type="Script" uid="uid://mx27vye5fcfb" path="res://Scripts/dialogue.gd" id="1_dgfud"]
+[ext_resource type="Texture2D" uid="uid://cj60l7cu6o1pw" path="res://icon.svg" id="2_p21q5"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8gbba"]
+light_mode = 1
+
+[sub_resource type="Theme" id="Theme_jjvhh"]
+
+[sub_resource type="Animation" id="Animation_jjvhh"]
+resource_name = "Appear"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.3, 1),
+"update": 0,
+"values": [Vector2(385, 617), Vector2(385, 217)]
+}
+
+[sub_resource type="Animation" id="Animation_21xkr"]
+resource_name = "Disappear"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.3, 1),
+"update": 0,
+"values": [Vector2(385, 217), Vector2(385, 617)]
+}
+
+[sub_resource type="Animation" id="Animation_6bp64"]
+resource_name = "Portrait Change"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/DialoguePortrait:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.2),
+"transitions": PackedFloat32Array(0.3, 0.3, 1),
+"update": 0,
+"values": [Vector2(0, -30), Vector2(0, -50), Vector2(0, -30)]
+}
+
+[sub_resource type="Animation" id="Animation_kry3j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(385, 617)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/DialoguePortrait:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -30)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6bp64"]
+_data = {
+&"Appear": SubResource("Animation_jjvhh"),
+&"Disappear": SubResource("Animation_21xkr"),
+&"Portrait Change": SubResource("Animation_6bp64"),
+&"RESET": SubResource("Animation_kry3j")
+}
+
+[node name="Dialogue" type="Node2D"]
+material = SubResource("CanvasItemMaterial_8gbba")
+position = Vector2(385, 617)
+script = ExtResource("1_dgfud")
+
+[node name="Node2D" type="Node2D" parent="."]
+use_parent_material = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+use_parent_material = true
+offset_left = -577.0
+offset_top = 40.0
+offset_right = 583.0
+offset_bottom = 320.0
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -563.0
+offset_top = -126.0
+offset_right = 563.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_jjvhh")
+color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control" parent="."]
+use_parent_material = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -560.0
+offset_top = 54.0
+offset_right = 566.0
+offset_bottom = 304.0
+
+[node name="DialoguePortrait" type="TextureRect" parent="Control"]
+use_parent_material = true
+layout_mode = 0
+offset_top = -30.0
+offset_right = 280.0
+offset_bottom = 250.0
+texture = ExtResource("2_p21q5")
+
+[node name="DialogueLabel" type="RichTextLabel" parent="Control"]
+use_parent_material = true
+layout_mode = 0
+offset_left = 283.0
+offset_top = 1.0
+offset_right = 1126.0
+offset_bottom = 251.0
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 25
+theme_override_font_sizes/bold_italics_font_size = 25
+theme_override_font_sizes/italics_font_size = 25
+theme_override_font_sizes/mono_font_size = 25
+bbcode_enabled = true
+
+[node name="DialogueSounds" type="Node" parent="Control"]
+
+[node name="DialogueAnimator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_6bp64")
+}

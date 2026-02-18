@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxxr7blclylan"]
+
+[ext_resource type="Script" uid="uid://c4y6j4vip3rs2" path="res://Scripts/main.gd" id="1_jjgbg"]
+[ext_resource type="Texture2D" uid="uid://cj60l7cu6o1pw" path="res://icon.svg" id="2_bo1nx"]
+[ext_resource type="Script" uid="uid://cukou3qfrnmpq" path="res://Scripts/cutscene_handler.gd" id="2_kry3j"]
+[ext_resource type="Texture2D" uid="uid://dp083afdigstg" path="res://VFX/Assets/Glow.png" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://dqcn4x2aia3yg" path="res://Scenes/dialogue.tscn" id="5_kry3j"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_jjgbg")
+CameraLimitLeft = -150.0
+CameraLimitRight = 150.0
+CameraSpeed = 2.5
+
+[node name="DARKEN THE WORLD" type="CanvasModulate" parent="."]
+color = Color(0.10747976, 0.10747973, 0.10747973, 1)
+
+[node name="CutsceneHandler" type="Node2D" parent="."]
+script = ExtResource("2_kry3j")
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Background"]
+position = Vector2(7, 24.5)
+scale = Vector2(11.453125, 7.5078125)
+texture = ExtResource("2_bo1nx")
+
+[node name="PointLight2D" type="PointLight2D" parent="Background"]
+scale = Vector2(1.4298434, 1)
+texture = ExtResource("3_8gbba")
+texture_scale = 5.85
+
+[node name="Camera" type="Camera2D" parent="."]
+
+[node name="Control" type="Control" parent="Camera"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -385.0
+offset_top = -217.0
+offset_right = 385.0
+offset_bottom = 217.0
+
+[node name="CameraControllerLeft" type="Control" parent="Camera/Control"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -555.0
+offset_top = -245.0
+offset_right = -73.0
+offset_bottom = 717.0
+
+[node name="ColorRect" type="ColorRect" parent="Camera/Control/CameraControllerLeft"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.3647059)
+
+[node name="CameraControllerRight" type="Control" parent="Camera/Control"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 854.0
+offset_top = -245.0
+offset_right = 1336.0
+offset_bottom = 722.0
+
+[node name="ColorRect" type="ColorRect" parent="Camera/Control/CameraControllerRight"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.3647059)
+
+[node name="Dialogue" parent="Camera/Control" instance=ExtResource("5_kry3j")]

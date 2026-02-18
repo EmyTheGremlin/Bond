@@ -1,0 +1,133 @@
+[gd_scene load_steps=7 format=3 uid="uid://j0lfwutb453a"]
+
+[ext_resource type="Script" uid="uid://ddun4q8d06gs" path="res://Scripts/title_screen.gd" id="1_klylv"]
+[ext_resource type="Texture2D" uid="uid://cj60l7cu6o1pw" path="res://icon.svg" id="2_4gxqj"]
+[ext_resource type="Texture2D" uid="uid://dp083afdigstg" path="res://VFX/Assets/Glow.png" id="3_twnyg"]
+
+[sub_resource type="Animation" id="Animation_p3fck"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-99, -500)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-52, -650)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Button:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_4gxqj"]
+resource_name = "Start"
+length = 2.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.3, 2.4),
+"transitions": PackedFloat32Array(0.40612632, 1),
+"update": 0,
+"values": [Vector2(-99, -500), Vector2(-98, -30)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.0333333),
+"transitions": PackedFloat32Array(0.43527523, 1),
+"update": 0,
+"values": [Vector2(-52, -650), Vector2(-56, -156)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Button:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_twnyg"]
+_data = {
+&"RESET": SubResource("Animation_p3fck"),
+&"Start": SubResource("Animation_4gxqj")
+}
+
+[node name="TitleScreen" type="Node2D"]
+script = ExtResource("1_klylv")
+
+[node name="Background" type="Node2D" parent="."]
+visible = false
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Background"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Background"]
+scale = Vector2(6.671875, 3.7500002)
+texture = ExtResource("2_4gxqj")
+
+[node name="PointLight2D" type="PointLight2D" parent="Background"]
+scale = Vector2(1.4298434, 1)
+texture = ExtResource("3_twnyg")
+texture_scale = 5.85
+
+[node name="Camera" type="Camera2D" parent="."]
+z_index = 1
+zoom = Vector2(1.5, 1.5)
+
+[node name="Button" type="Button" parent="."]
+offset_left = -99.0
+offset_top = -500.0
+offset_right = -3.0
+offset_bottom = -469.0
+scale = Vector2(2, 2)
+disabled = true
+text = "Start Game"
+
+[node name="Label" type="RichTextLabel" parent="."]
+offset_left = -52.0
+offset_top = -650.0
+offset_right = 7.0
+offset_bottom = -627.0
+scale = Vector2(2, 2)
+text = "BOND"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_twnyg")
+}
